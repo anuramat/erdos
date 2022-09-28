@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: .
+    ports:
+      - ${backend_port}:${backend_port}
+    command: python src/app.py
+    environment:
+      dbhostname: db
+    env_file: .env
+    depends_on:
+      - db
+  db:
+    image: postgres
+    restart: always
+    env_file: .env
