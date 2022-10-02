@@ -268,3 +268,6 @@ $RECYCLE.BIN/
 
 # zips
 *.7z
+
+# .env
+.env
