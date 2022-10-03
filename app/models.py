@@ -1,5 +1,5 @@
 import logging
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Text, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.expression import text
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -46,6 +46,13 @@ class Venue(Base):
     name = Column(Text)
 
 
+class Abstract(Base):
+    __tablename__ = "abstracts"
+    paper_id = Column(String(24), ForeignKey("papers.id", ondelete="CASCADE"))
+    abstract = Column(String(500))
+    indexed = Column(JSON)
+
+
 class PaperFieldOfStudy(Base):
     __tablename__ = "paper_fields_of_study"
     paper_id = Column(String(24), ForeignKey("papers.id", ondelete="CASCADE"))
@@ -62,6 +69,12 @@ class References(Base):
     __tablename__ = "references"
     paper_id = Column(String(24), ForeignKey("papers.id", ondelete="CASCADE"))
     referenced_id = Column(String(24), ForeignKey("papers.id"))
+
+
+class ExternalLink(Base):
+    __tablename__ = "external_links"
+    paper_id = Column(String(24), ForeignKey("papers.id", ondelete="CASCADE"))
+    link = Column(String(200))
 
 
 # class User(Base):
