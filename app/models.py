@@ -1,9 +1,5 @@
-import logging
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Text, JSON
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, JSON
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.expression import text
-from sqlalchemy.sql.sqltypes import TIMESTAMP
-
 from .database import Base
 
 
@@ -23,7 +19,7 @@ class Paper(Base):
     year = Column(Integer)
     page_start = Column(Integer)
     page_end = Column(Integer)
-    publication = Column(String(50))
+    publisher = Column(String(50))
     issue = Column(Integer)
     volume = Column(Integer)
     language = Column(String(3))
@@ -49,7 +45,7 @@ class Venue(Base):
 class Abstract(Base):
     __tablename__ = "abstracts"
     paper_id = Column(String(24), ForeignKey("papers.id", ondelete="CASCADE"))
-    abstract = Column(String(500))
+    abstract = Column(Text)
     indexed = Column(JSON)
 
 
