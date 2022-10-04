@@ -41,6 +41,15 @@ async def delete_paper():
     pass
 
 
-if __name__ == "__main__":
+def main():
     port = getenv("backend_port")
-    uvicorn.run("main:app", port=port)
+    if port:
+        port = int(port)
+    else:
+        print("backend_port environment variable not found")
+        return
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+
+
+if __name__ == "__main__":
+    main()
