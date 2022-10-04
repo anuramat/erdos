@@ -17,6 +17,3 @@ pip-compile -o requirements.txt pyproject.toml
 ```bash
 pip install -r requirements.txt
 ```
-
-backlog:
-- add `.env` to `.gitignore`, create `example.env`
