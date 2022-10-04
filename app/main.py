@@ -3,6 +3,7 @@ from os import getenv
 import uvicorn
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
+
 import database
 import models
 import schemas
