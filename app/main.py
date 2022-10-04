@@ -22,8 +22,8 @@ async def create_paper(paper: schemas.CreatePaper, db=Depends(database.get_db)):
 async def read_papers(
     db: Session = Depends(database.get_db), response_model=list[schemas.ReadPaper]
 ):
-    result = db.query(models.Paper).filter_by(year=100).all()
-    return result
+    papers = db.query(models.Paper).all()
+    return papers
 
 
 @app.get("/papers/{id}")
@@ -43,4 +43,4 @@ async def delete_paper():
 
 if __name__ == "__main__":
     port = getenv("backend_port")
-    uvicorn.run("main:app", port=port, reload=True)
+    uvicorn.run("main:app", port=port)
