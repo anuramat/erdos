@@ -3,7 +3,7 @@ services:
     build: .
     ports:
       - ${backend_port}:${backend_port}
-    command: python -u ./app.py
+    command: python ./app/main.py
     environment:
       dbhostname: db
     env_file: .env
