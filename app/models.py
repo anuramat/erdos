@@ -1,7 +1,7 @@
 from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
-from database import Base
+from app.database import Base
 
 
 class Paper(Base):
