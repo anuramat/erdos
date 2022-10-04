@@ -1,4 +1,4 @@
 [project]
 name = "erdos"
 version = "1"
-dependencies = ["fastapi", "uvicorn[standard]", "sqlalchemy", "psycopg2"]
+dependencies = ["fastapi", "uvicorn[standard]", "sqlalchemy", "psycopg2", "alembic"]
