@@ -10,7 +10,7 @@ models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 
 
-@app.post("/papers", response_model=schemas.BaseModel)
+@app.post("/papers", response_model=schemas.BasePaper)
 async def create_paper(
     paper: schemas.BasePaper, db: Session = Depends(database.get_db)
 ):
