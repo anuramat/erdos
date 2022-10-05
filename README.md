@@ -1,6 +1,15 @@
 # erdos
 
-dependency workflow:
+### quickstart:
+
+```bash
+docker compose up
+```
+
+swagger is @ hostname/docs
+
+### dependency workflow:
+
 - install pip-tools:
 ```bash
 pip install pip-tools
