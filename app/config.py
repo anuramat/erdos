@@ -2,11 +2,11 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    BACKEND_PORT: int | None
-    POSTGRES_HOST: str | None
-    POSTGRES_PASSWORD: str | None
-    POSTGRES_USER: str | None
-    POSTGRES_DB: str | None
+    BACKEND_PORT: int
+    POSTGRES_HOST: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_USER: str
+    POSTGRES_DB: str
 
 
 settings = Settings()

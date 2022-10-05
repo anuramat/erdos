@@ -1,12 +1,11 @@
-from os import getenv
-
-import uvicorn
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
-import database
-import models
-import schemas
+from . import database
+from . import models
+from . import schemas
+
+models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 
@@ -39,17 +38,3 @@ async def update_paper():
 @app.delete("/papers/{id}")
 async def delete_paper():
     pass
-
-
-def main():
-    port = getenv("backend_port")
-    if port:
-        port = int(port)
-    else:
-        print("backend_port environment variable not found")
-        return
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
-
-
-if __name__ == "__main__":
-    main()
