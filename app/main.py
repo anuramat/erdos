@@ -10,7 +10,7 @@ models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 
 
-@app.post("/papers")
+@app.post("/papers", response_model=schemas.BaseModel)
 async def create_paper(
     paper: schemas.BasePaper, db: Session = Depends(database.get_db)
 ):
@@ -37,18 +37,14 @@ async def create_paper(
     return new_paper
 
 
-@app.get("/papers")
-async def read_papers(
-    db: Session = Depends(database.get_db), response_model=list[schemas.BasePaper]
-):
+@app.get("/papers", response_model=list[schemas.BasePaper])
+async def read_papers(db: Session = Depends(database.get_db)):
     papers = db.query(models.Paper).all()
     return papers
 
 
-@app.get("/papers/{id}")
-async def read_paper(
-    id: str, db: Session = Depends(database.get_db), response_model=schemas.BasePaper
-):
+@app.get("/papers/{id}", response_model=schemas.BasePaper)
+async def read_paper(id: str, db: Session = Depends(database.get_db)):
 
     paper = db.query(models.Paper).filter(models.Paper.id == id).first()
     if paper is None:
@@ -59,7 +55,7 @@ async def read_paper(
     return paper
 
 
-@app.patch("/papers/{id}")
+@app.patch("/papers/{id}", response_model=schemas.BasePaper)
 async def update_paper(
     id: str, paper: schemas.UpdatePaper, db: Session = Depends(database.get_db)
 ):
@@ -75,10 +71,8 @@ async def update_paper(
     return query.first()
 
 
-@app.delete("/papers/{id}")
-async def delete_paper(
-    id: str, db: Session = Depends(database.get_db), response_model=schemas.BasePaper
-):
+@app.delete("/papers/{id}", response_model=schemas.BasePaper)
+async def delete_paper(id: str, db: Session = Depends(database.get_db)):
     query = db.query(models.Paper).filter(models.Paper.id == id)
     paper = query.first()
     if paper is None:
