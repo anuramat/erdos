@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 
-from . import database, models
-from .routers import papers, users
+from app import database, models
+from app.routers import papers, users
 
 models.Base.metadata.create_all(bind=database.engine)
 # TODO remove when alembic is ready
