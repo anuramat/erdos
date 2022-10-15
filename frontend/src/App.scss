@@ -1,0 +1,49 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  padding: 50px 0px 50px 0px;
+
+  background-color: #ff8100;
+  opacity: 1;
+  background-image:  linear-gradient(30deg, #0d00ff 12%, transparent 12.5%, transparent 87%, #0d00ff 87.5%, #0d00ff), linear-gradient(150deg, #0d00ff 12%, transparent 12.5%, transparent 87%, #0d00ff 87.5%, #0d00ff), linear-gradient(30deg, #0d00ff 12%, transparent 12.5%, transparent 87%, #0d00ff 87.5%, #0d00ff), linear-gradient(150deg, #0d00ff 12%, transparent 12.5%, transparent 87%, #0d00ff 87.5%, #0d00ff), linear-gradient(60deg, #0d00ff77 25%, transparent 25.5%, transparent 75%, #0d00ff77 75%, #0d00ff77), linear-gradient(60deg, #0d00ff77 25%, transparent 25.5%, transparent 75%, #0d00ff77 75%, #0d00ff77);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+.middle-column {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .rounded-4;
+  
+  background-color: rgba(255,255,255,0.9);
+  
+  width: 40vw;
+  height: 100%;
+
+  padding: 50px 50px 50px 50px;
+
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  @extend .btn;
+  @extend .btn-outline-dark;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.form {
+  @extend .form-control;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.index-message {
+  margin-bottom: 20px;
+}
