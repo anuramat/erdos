@@ -1,0 +1,21 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "index";
+
+.button {
+  @extend .btn;
+  @extend .btn-outline-dark;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.form {
+  @extend .form-control;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.middle-column {
+  @extend .stack-column;
+}

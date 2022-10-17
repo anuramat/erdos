@@ -3,7 +3,6 @@
 .background {
   width: 100vw;
   height: 100vh;
-  padding: 50px 0px 50px 0px;
 
   background-color: #ff8100;
   opacity: 1;
@@ -12,38 +11,21 @@
   background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
 }
 
-.middle-column {
+.content-container {
+  background-color: rgba(255,255,255,0.9);
+  padding: 50px 50px 50px 50px;
+  @extend .rounded-4;
+}
+
+.stack-column {
+  @extend .content-container;
   @extend .d-flex;
   @extend .flex-column;
-  @extend .rounded-4;
-  
-  background-color: rgba(255,255,255,0.9);
   
   width: 40vw;
   height: 100%;
 
-  padding: 50px 50px 50px 50px;
-
   margin: auto;
   align-items: center;
   justify-content: center;
-}
-
-.button {
-  @extend .btn;
-  @extend .btn-outline-dark;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 200px;
-}
-
-.form {
-  @extend .form-control;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 200px;
-}
-
-.index-message {
-  margin-bottom: 20px;
 }
