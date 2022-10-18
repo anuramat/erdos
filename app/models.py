@@ -8,9 +8,6 @@ class Paper(Base):
     __tablename__ = "papers"
     id = Column(String(24), primary_key=True)
 
-    author_id = Column(String(24), ForeignKey("authors.id", ondelete="CASCADE"))
-    author = relationship("Author")
-
     venue_id = Column(String(24), ForeignKey("venues.id", ondelete="CASCADE"))
     venue = relationship("Venue")
 
@@ -50,6 +47,18 @@ class Abstract(Base):
     indexed = Column(JSON)
 
 
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True)
+    email = Column(String(128), nullable=False)
+    hash = Column(String(128), nullable=False)
+    salt = Column(String(128), nullable=False)
+    author_id = Column(
+        String(24), ForeignKey("authors.id", ondelete="CASCADE"), nullable=False
+    )
+    author = relationship("Author")
+
+
 class PaperFieldOfStudy(Base):
     __tablename__ = "paper_fields_of_study"
     id = Column(Integer, primary_key=True)
@@ -68,6 +77,19 @@ class PaperKeyword(Base):
         String(24), ForeignKey("papers.id", ondelete="CASCADE"), nullable=False
     )
     keyword = Column(String(24), nullable=False)
+
+
+class PaperAuthors(Base):
+    __tablename__ = "paper_authors"
+    id = Column(Integer, primary_key=True)
+
+    paper_id = Column(
+        String(24), ForeignKey("papers.id", ondelete="CASCADE"), nullable=False
+    )
+
+    author_id = Column(
+        String(24), ForeignKey("authors.id", ondelete="CASCADE"), nullable=False
+    )
 
 
 class References(Base):
