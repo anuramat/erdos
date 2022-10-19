@@ -1,7 +1,42 @@
-from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text
+from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text, Table
 from sqlalchemy.orm import relationship
 
 from app.database import Base
+
+
+PaperAuthors = Table(
+    "paper_authors",
+    Base.metadata,
+    Column(
+        "paper_id",
+        String(24),
+        ForeignKey("papers.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "author_id",
+        String(24),
+        ForeignKey("authors.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+)
+
+References = Table(
+    "references",
+    Base.metadata,
+    Column(
+        "paper_id",
+        String(24),
+        ForeignKey("papers.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "referenced_id",
+        String(24),
+        ForeignKey("papers.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+)
 
 
 class Paper(Base):
@@ -9,7 +44,6 @@ class Paper(Base):
     id = Column(String(24), primary_key=True)
 
     venue_id = Column(String(24), ForeignKey("venues.id", ondelete="CASCADE"))
-    venue = relationship("Venue")
 
     citation_number = Column(Integer)
     year = Column(Integer)
@@ -23,6 +57,15 @@ class Paper(Base):
     isbn = Column(String(30))
     doi = Column(String(50))
     pdf_url = Column(String(200))
+    cluster = Column(String(32))
+
+    external_links = relationship("ExternalLink")
+    fields_of_study = relationship("PaperFieldOfStudy")
+    keyword = relationship("PaperKeyword")
+    abstract = relationship("Abstract")
+    venue = relationship("Venue")
+    authors = relationship("Author", secondary=PaperAuthors)
+    # TODO references many-to-many self referencing
 
 
 class Author(Base):
@@ -77,29 +120,6 @@ class PaperKeyword(Base):
         String(24), ForeignKey("papers.id", ondelete="CASCADE"), nullable=False
     )
     keyword = Column(String(24), nullable=False)
-
-
-class PaperAuthors(Base):
-    __tablename__ = "paper_authors"
-    id = Column(Integer, primary_key=True)
-
-    paper_id = Column(
-        String(24), ForeignKey("papers.id", ondelete="CASCADE"), nullable=False
-    )
-
-    author_id = Column(
-        String(24), ForeignKey("authors.id", ondelete="CASCADE"), nullable=False
-    )
-
-
-class References(Base):
-    __tablename__ = "references"
-    id = Column(Integer, primary_key=True)
-
-    paper_id = Column(
-        String(24), ForeignKey("papers.id", ondelete="CASCADE"), nullable=False
-    )
-    referenced_id = Column(String(24), ForeignKey("papers.id"), nullable=False)
 
 
 class ExternalLink(Base):

@@ -1,9 +1,17 @@
 from pydantic import BaseModel, constr
 
 
-class UpdatePaper(BaseModel):
+class Author(BaseModel):
+    id: constr(max_length=24)
+    name: str
+    organization: str
+
+    class Config:
+        orm_mode = True
+
+
+class BasePaper(BaseModel):
     __tablename__ = "papers"
-    author_id: constr(max_length=24) | None
     venue_id: constr(max_length=24) | None
 
     citation_number: int | None
@@ -18,10 +26,12 @@ class UpdatePaper(BaseModel):
     isbn: constr(max_length=30) | None
     doi: constr(max_length=50) | None
     pdf_url: constr(max_length=200) | None
+    cluster: constr(max_length=32) | None
+    authors: list[Author] = []
 
     class Config:
         orm_mode = True
 
 
-class BasePaper(UpdatePaper):
+class ResponsePaper(BasePaper):
     id: constr(max_length=24)
