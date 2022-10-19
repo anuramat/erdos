@@ -12,6 +12,7 @@ class Author(BaseModel):
 
 class BasePaper(BaseModel):
     __tablename__ = "papers"
+    id: constr(max_length=24)
     venue_id: constr(max_length=24) | None
 
     citation_number: int | None
@@ -31,7 +32,3 @@ class BasePaper(BaseModel):
 
     class Config:
         orm_mode = True
-
-
-class ResponsePaper(BasePaper):
-    id: constr(max_length=24)
