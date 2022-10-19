@@ -1,0 +1,26 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.background {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #a3d3ff;
+}
+
+.content-container {
+  background-color: rgba(255,255,255,0.8);
+  padding: 50px 50px 50px 50px;
+  word-break: break-all;
+  @extend .rounded-4;
+}
+
+.stack-column {
+  @extend .content-container;
+  @extend .d-flex;
+  @extend .flex-column;
+  
+
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+

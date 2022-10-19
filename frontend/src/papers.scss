@@ -1,0 +1,23 @@
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "index";
+
+
+
+.form {
+  @extend .form-control;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.button {
+  @extend .btn;
+  @extend .btn-primary;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.left-menu {
+  @extend .stack-column;
+}
