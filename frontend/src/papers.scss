@@ -1,21 +1,20 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "index";
 
-.button {
-  @extend .btn;
-  @extend .btn-outline-dark;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 200px;
-}
+
 
 .form {
   @extend .form-control;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
 }
 
-.search-form {
-  @extend .form-control;
+.button {
+  @extend .btn;
+  @extend .btn-primary;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
 }
 

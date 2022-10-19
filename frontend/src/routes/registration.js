@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Registration = () => {
     return (
-        <div className="background">
+        <div className="background p-5">
             <div className="middle-column">
                 <div className="index-message"> xd xd xd </div>
                 <input type="email" class="form" id="email" placeholder="email" />
