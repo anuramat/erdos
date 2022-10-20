@@ -1,4 +1,5 @@
 from pydantic import BaseModel, constr
+import typing
 
 
 class Author(BaseModel):
@@ -10,8 +11,15 @@ class Author(BaseModel):
         orm_mode = True
 
 
+class Abstract(BaseModel):
+    abstract: str | None
+    indexed: dict | None
+
+    class Config:
+        orm_mode = True
+
+
 class BasePaper(BaseModel):
-    __tablename__ = "papers"
     id: constr(max_length=24)
     venue_id: constr(max_length=24) | None
 
@@ -27,8 +35,19 @@ class BasePaper(BaseModel):
     isbn: constr(max_length=30) | None
     doi: constr(max_length=50) | None
     pdf_url: constr(max_length=200) | None
-    cluster: constr(max_length=32) | None
-    authors: list[Author] = []
+    abstract: Abstract | None
 
     class Config:
         orm_mode = True
+
+
+class ResponsePaper(BasePaper):
+    authors: list[Author] = []
+    cluster: constr(max_length=32)
+
+
+class FilterParameters(BaseModel):
+    author: str | None
+    year: int | None
+    cluster: str | None
+    venue: str | None

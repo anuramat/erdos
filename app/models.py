@@ -62,8 +62,8 @@ class Paper(Base):
     external_links = relationship("ExternalLink")
     fields_of_study = relationship("PaperFieldOfStudy")
     keyword = relationship("PaperKeyword")
-    abstract = relationship("Abstract")
-    venue = relationship("Venue")
+    abstract = relationship("Abstract", uselist=False)
+    venue = relationship("Venue", uselist=False)
     authors = relationship("Author", secondary=PaperAuthors)
     # TODO references many-to-many self referencing
 
@@ -86,6 +86,7 @@ class Abstract(Base):
     paper_id = Column(
         String(24), ForeignKey("papers.id", ondelete="CASCADE"), primary_key=True
     )
+    # TODO rename abstract to text
     abstract = Column(Text)
     indexed = Column(JSON)
 

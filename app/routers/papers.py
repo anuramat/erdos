@@ -1,3 +1,4 @@
+from email.policy import HTTP
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 
@@ -10,15 +11,14 @@ router = APIRouter(prefix="/papers")
 async def create_paper(
     paper_request: schemas.BasePaper, db: Session = Depends(database.get_db)
 ):
-
-    author_exists = (
-        db.query(models.Author).filter_by(id=paper_request.author_id).first()
-        is not None
+    paper_exists = (
+        db.query(models.Paper).filter_by(id=paper_request.id).first() is not None
     )
-    if not author_exists:
-        new_author = models.Author(id=paper_request.author_id)
-        db.add(new_author)
-
+    if paper_exists:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=f'Paper with id "{paper_request.id}" already exists',
+        )
     venue_exists = (
         db.query(models.Venue).filter_by(id=paper_request.venue_id).first() is not None
     )
@@ -33,13 +33,12 @@ async def create_paper(
     return new_paper
 
 
-@router.get("/", response_model=list[schemas.BasePaper])
+@router.get("/", response_model=list[schemas.ResponsePaper])
 async def read_papers(db: Session = Depends(database.get_db)):
-    papers = db.query(models.Paper).all()
-    return papers
+    return db.query(models.Paper).all()
 
 
-@router.get("/{id}", response_model=schemas.BasePaper)
+@router.get("/{id}", response_model=schemas.ResponsePaper)
 async def read_paper(id: str, db: Session = Depends(database.get_db)):
 
     paper = db.query(models.Paper).filter(models.Paper.id == id).first()
@@ -51,9 +50,11 @@ async def read_paper(id: str, db: Session = Depends(database.get_db)):
     return paper
 
 
-@router.patch("/{id}", response_model=schemas.BasePaper)
+@router.patch("/{id}", response_model=schemas.ResponsePaper)
 async def update_paper(
-    id: str, paper_request: schemas.UpdatePaper, db: Session = Depends(database.get_db)
+    id: str,
+    paper_request: schemas.BasePaper,
+    db: Session = Depends(database.get_db),
 ):
     query = db.query(models.Paper).filter(models.Paper.id == id)
     existing_paper = query.first()
@@ -67,7 +68,7 @@ async def update_paper(
     return query.first()
 
 
-@router.delete("/{id}", response_model=schemas.BasePaper)
+@router.delete("/{id}")
 async def delete_paper(id: str, db: Session = Depends(database.get_db)):
     query = db.query(models.Paper).filter(models.Paper.id == id)
     paper = query.first()
