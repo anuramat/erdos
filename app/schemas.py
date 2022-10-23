@@ -1,4 +1,4 @@
-from pydantic import BaseModel, constr
+from pydantic import BaseModel as BaseModel, constr, validator, Field
 import typing
 
 
@@ -47,7 +47,22 @@ class ResponsePaper(BasePaper):
 
 
 class FilterParameters(BaseModel):
-    author: str | None
-    year: int | None
+    author: constr(strip_whitespace=True) | None
+    year: int | constr(strip_whitespace=True) | None
     cluster: str | None
     venue: str | None
+
+    @validator("year", pre=True)
+    def empty_year_to_none(cls, v):
+        if v == "":
+            return None
+        return v
+
+    @validator("author", pre=True)
+    def empty_author_to_none(cls, v):
+        if v == "":
+            return None
+        return v
+
+
+# TODO add strip_whitespace=True to constr fields
