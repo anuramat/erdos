@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_USER: str
     POSTGRES_DB: str
+    JWT_SECRET: str = "asdfasdfasdfsadf"
+    JWT_ALGO: str = "HS256"
 
 
 settings = Settings()

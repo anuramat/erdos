@@ -95,8 +95,7 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     email = Column(String(128), nullable=False)
-    hash = Column(String(128), nullable=False)
-    salt = Column(String(128), nullable=False)
+    hashed = Column(String(256), nullable=False)
 
 
 class PaperFieldOfStudy(Base):

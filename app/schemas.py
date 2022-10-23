@@ -1,5 +1,4 @@
-from pydantic import BaseModel as BaseModel, constr, validator, Field
-import typing
+from pydantic import BaseModel, EmailStr, constr, validator
 
 
 class Author(BaseModel):
@@ -66,3 +65,24 @@ class FilterParameters(BaseModel):
 
 
 # TODO add strip_whitespace=True to constr fields
+
+
+class UserData(BaseModel):
+    """
+    stuff stored in JWT
+    """
+
+    id: int
+    email: EmailStr
+
+    class Config:
+        orm_mode = True
+
+
+class UserCreds(BaseModel):
+    """
+    request body for login/registration
+    """
+
+    email: EmailStr
+    password: str
