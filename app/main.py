@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app import database, models
-from app.routers import papers, auth, feed
+from app.routers import auth, feed, papers
 
 models.Base.metadata.create_all(bind=database.engine)
 # TODO remove when alembic is ready
@@ -21,8 +21,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/")
-async def index():
-    return "index path, nothing here"

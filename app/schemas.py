@@ -46,6 +46,10 @@ class ResponsePaper(BasePaper):
 
 
 class FilterParameters(BaseModel):
+    """
+    search parameter
+    """
+
     author: constr(strip_whitespace=True) | None
     year: int | constr(strip_whitespace=True) | None
     cluster: str | None

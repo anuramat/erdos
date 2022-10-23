@@ -1,15 +1,16 @@
 from email.policy import HTTP
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
-
+from app import oauth2
 from app import database, models, schemas
 
-router = APIRouter(prefix="/papers")
+router = APIRouter(prefix="/papers", tags=["Basic CRUD"])
 
 
 @router.post("/", response_model=schemas.BasePaper)
 async def create_paper(
-    paper_request: schemas.BasePaper, db: Session = Depends(database.get_db)
+    paper_request: schemas.BasePaper,
+    db: Session = Depends(database.get_db),
 ):
     paper_exists = (
         db.query(models.Paper).filter_by(id=paper_request.id).first() is not None
