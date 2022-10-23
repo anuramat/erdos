@@ -97,10 +97,6 @@ class User(Base):
     email = Column(String(128), nullable=False)
     hash = Column(String(128), nullable=False)
     salt = Column(String(128), nullable=False)
-    author_id = Column(
-        String(24), ForeignKey("authors.id", ondelete="CASCADE"), nullable=False
-    )
-    author = relationship("Author")
 
 
 class PaperFieldOfStudy(Base):
