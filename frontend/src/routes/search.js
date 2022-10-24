@@ -11,10 +11,10 @@ import { getJWT } from 'auth';
 export const Search = () => {
 
     const [posts, setPosts] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [, setSearchParams] = useSearchParams();
     const { register, handleSubmit } = useForm({ defaultValues: queryString.parse(window.location.search) });
 
-    const LoadingError = (e) => {
+    const LoadingError = () => {
         return (
             < div className="content-container mt-5" > whoops</div >
         )
@@ -35,6 +35,7 @@ export const Search = () => {
 
     useEffect(() => {
         searchHandler(queryString.parse(window.location.search))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

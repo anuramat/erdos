@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 
 const key = "jwt"
