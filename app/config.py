@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     POSTGRES_DB: str
     JWT_SECRET: str
     JWT_ALGO: str = "HS256"
+    MODEL_PATH: str
 
 
 settings = Settings()

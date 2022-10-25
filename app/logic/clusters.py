@@ -1,5 +1,7 @@
 from collections import defaultdict
 from random import randint
+from app.config import settings
+import pickle
 
 ORIGINAL_MAPPING = [
     ("Performance and optimization", [0, 2, 8, 10, 12, 26, 32, 28, 33, 40, 34]),
@@ -15,6 +17,18 @@ for pair in ORIGINAL_MAPPING:
     for number in pair[1]:
         MAPPING[number] = pair[0]
 
+model = None
+if settings.MODEL_PATH is not None:
+    with open(settings.MODEL_PATH, "rb") as f:
+        model = pickle.load(f)
+
 
 def get_cluster(text: str) -> int:
+    if model is not None:
+        return model.predict([text])[0][0]
+
     return randint(0, 40)
+
+
+def get_tag(text: str) -> str:
+    return MAPPING[get_cluster(text)]

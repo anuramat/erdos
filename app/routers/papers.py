@@ -32,7 +32,7 @@ async def create_paper(
     authors = [models.Author(**i.dict()) for i in paper_request.authors]
 
     paper_dict = paper_request.dict()
-    paper_dict["tag"] = clusters.get_cluster(paper_request.abstract.text)
+    paper_dict["tag"] = clusters.get_tag(paper_request.abstract.text)
     del paper_dict["abstract"]
     del paper_dict["authors"]
     new_paper = models.Paper(**paper_dict, abstract=abstract, authors=authors)
