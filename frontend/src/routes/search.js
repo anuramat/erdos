@@ -43,6 +43,7 @@ export const Search = () => {
             <form onSubmit={handleSubmit(searchHandler)}>
                 <input className="form" placeholder='year' {...register("year")} />
                 <input className="form" placeholder='author' {...register("author")} />
+                <input className="form" placeholder='tag' {...register("tag")} />
                 <input type="submit" className="button" />
             </form>
             {posts}

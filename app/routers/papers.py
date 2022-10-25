@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
 from app import oauth2
 from app import database, models, schemas
+from app.logic import clusters
 
 router = APIRouter(prefix="/papers", tags=["Basic CRUD"])
 
@@ -27,7 +28,15 @@ async def create_paper(
         new_venue = models.Venue(id=paper_request.venue_id)
         db.add(new_venue)
 
-    new_paper = models.Paper(**paper_request.dict())
+    abstract = models.Abstract(**paper_request.abstract.dict())
+    authors = [models.Author(**i.dict()) for i in paper_request.authors]
+
+    paper_dict = paper_request.dict()
+    paper_dict["tag"] = clusters.get_cluster(paper_request.abstract.text)
+    del paper_dict["abstract"]
+    del paper_dict["authors"]
+    new_paper = models.Paper(**paper_dict, abstract=abstract, authors=authors)
+
     db.add(new_paper)
     db.commit()
     db.refresh(new_paper)

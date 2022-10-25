@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, constr, validator
+from app.models import Abstract
 
 
 class Author(BaseModel):
@@ -11,7 +12,7 @@ class Author(BaseModel):
 
 
 class Abstract(BaseModel):
-    abstract: str | None
+    text: str
     indexed: dict | None
 
     class Config:
@@ -35,14 +36,14 @@ class BasePaper(BaseModel):
     doi: constr(max_length=50) | None
     pdf_url: constr(max_length=200) | None
     abstract: Abstract | None
+    authors: list[Author] = []
 
     class Config:
         orm_mode = True
 
 
 class ResponsePaper(BasePaper):
-    authors: list[Author] = []
-    cluster: constr(max_length=32)
+    tag: constr(max_length=32)
 
 
 class FilterParameters(BaseModel):
@@ -52,20 +53,16 @@ class FilterParameters(BaseModel):
 
     author: constr(strip_whitespace=True) | None
     year: int | constr(strip_whitespace=True) | None
-    cluster: str | None
+    tag: str | None
     venue: str | None
 
-    @validator("year", pre=True)
-    def empty_year_to_none(cls, v):
+    @validator("*", pre=True)
+    def empty_string_to_none(cls, v):
         if v == "":
             return None
         return v
 
-    @validator("author", pre=True)
-    def empty_author_to_none(cls, v):
-        if v == "":
-            return None
-        return v
+    # todo make sure year is not str
 
 
 # TODO add strip_whitespace=True to constr fields
