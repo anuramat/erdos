@@ -8,7 +8,7 @@ from app.logic import clusters
 router = APIRouter(prefix="/papers", tags=["Basic CRUD"])
 
 
-@router.post("/", response_model=schemas.BasePaper)
+@router.post("/", response_model=schemas.ResponsePaper)
 async def create_paper(
     paper_request: schemas.BasePaper,
     db: Session = Depends(database.get_db),

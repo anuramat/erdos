@@ -1,9 +1,10 @@
 # Stage 1
 FROM node as react-build
 WORKDIR /app
+COPY package*.json /app/
+RUN npm install
 COPY . ./
-RUN yarn
-RUN yarn build
+RUN npm run build
 
 # Stage 2 - the production environment
 FROM nginx
