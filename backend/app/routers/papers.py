@@ -1,7 +1,5 @@
-from email.policy import HTTP
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session
-from app import oauth2
 from app import database, models, schemas
 from app.logic import clusters
 
@@ -29,12 +27,21 @@ async def create_paper(
         db.add(new_venue)
 
     abstract = models.Abstract(**paper_request.abstract.dict())
-    authors = [models.Author(**i.dict()) for i in paper_request.authors]
+
+    authors = []
+    for author_id in paper_request.author_ids:
+        author = db.query(models.Author).filter_by(id=author_id).first()
+        if author is not None:
+            authors.append(author)
+        else:
+            author = models.Author(id=author_id)
+            db.add(author)
+            authors.append(author)
 
     paper_dict = paper_request.dict()
     paper_dict["tag"] = clusters.get_tag(paper_request.abstract.text)
     del paper_dict["abstract"]
-    del paper_dict["authors"]
+    del paper_dict["author_ids"]
     new_paper = models.Paper(**paper_dict, abstract=abstract, authors=authors)
 
     db.add(new_paper)

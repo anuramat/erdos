@@ -4,8 +4,8 @@ from app.models import Abstract
 
 class Author(BaseModel):
     id: constr(max_length=24)
-    name: str
-    organization: str
+    name: str | None
+    organization: str | None
 
     class Config:
         orm_mode = True
@@ -36,7 +36,7 @@ class BasePaper(BaseModel):
     doi: constr(max_length=50) | None
     pdf_url: constr(max_length=200) | None
     abstract: Abstract | None
-    authors: list[Author] = []
+    author_ids: list[constr(max_length=24)] = []
 
     class Config:
         orm_mode = True
@@ -44,6 +44,7 @@ class BasePaper(BaseModel):
 
 class ResponsePaper(BasePaper):
     tag: constr(max_length=32)
+    authors: list[Author] = []
 
 
 class FilterParameters(BaseModel):
