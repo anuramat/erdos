@@ -17,7 +17,7 @@ async def create_paper(
     if paper_exists:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f'Paper with id "{paper_request.id}" already exists',
+            detail=f"Paper with id {paper_request.id} already exists",
         )
     venue_exists = (
         db.query(models.Venue).filter_by(id=paper_request.venue_id).first() is not None
@@ -34,7 +34,7 @@ async def create_paper(
         if author is not None:
             authors.append(author)
         else:
-            author = models.Author(id=author_id)
+            author = models.Author(id=author_id, rating=0)
             db.add(author)
             authors.append(author)
 
@@ -46,7 +46,6 @@ async def create_paper(
 
     db.add(new_paper)
     db.commit()
-    db.refresh(new_paper)
     return new_paper
 
 
@@ -62,7 +61,7 @@ async def read_paper(id: str, db: Session = Depends(database.get_db)):
     if paper is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f'Paper with id "{id}" does not exist',
+            detail=f"Paper with id {id} does not exist",
         )
     return paper
 
@@ -78,7 +77,7 @@ async def update_paper(
     if existing_paper is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f'Paper with id "{id}" does not exist',
+            detail=f"Paper with id {id} does not exist",
         )
     query.update(paper_request.dict(exclude_unset=True), synchronize_session=False)
     db.commit()
@@ -92,7 +91,7 @@ async def delete_paper(id: str, db: Session = Depends(database.get_db)):
     if paper is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f'Paper with id "{id}" does not exist',
+            detail=f"Paper with id {id} does not exist",
         )
     query.delete(synchronize_session=False)
     db.commit()

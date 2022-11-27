@@ -73,6 +73,7 @@ class Author(Base):
     id = Column(String(24), primary_key=True)
     name = Column(Text)
     organization = Column(Text)
+    rating = Column(Integer, nullable=False)
 
 
 class Venue(Base):

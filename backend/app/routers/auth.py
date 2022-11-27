@@ -18,7 +18,7 @@ def register(
     if user is not None:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f'User with email "{user_creds.email}" already exists',
+            detail=f"User with email {user_creds.email} already exists",
         )
 
     email = user_creds.email
@@ -43,7 +43,7 @@ def login(
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail=f'User with email "{user_creds.email}" doesn\'t exist',
+            detail=f"User with email {user_creds.email} doesn't exist",
         )
 
     if utils.verify_hash(user_creds.password, user.hashed):
