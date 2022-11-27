@@ -95,6 +95,12 @@ class BaseAuthor(BaseModel):
     name: str | None
     organization: str | None
 
+    class Config:
+        orm_mode = True
+
 
 class ResponseAuthor(BaseAuthor):
     rating: int
+
+    class Config:
+        orm_mode = True

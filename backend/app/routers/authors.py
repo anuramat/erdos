@@ -6,9 +6,9 @@ from app.logic import clusters
 router = APIRouter(prefix="/authors", tags=["Authors stuff"])
 
 
-@router.post("/create_author", response_model=schemas.ResponseAuthor)
+@router.post("/", response_model=schemas.ResponseAuthor)
 async def create_author(
-    author_request: schemas.BasePaper,
+    author_request: schemas.BaseAuthor,
     db: Session = Depends(database.get_db),
 ):
     author_exists = (
@@ -19,7 +19,7 @@ async def create_author(
             status_code=status.HTTP_403_FORBIDDEN,
             detail=f"Author with id {author_request.id} already exists",
         )
-    new_author = models.Paper(**author_request, rating=0)
+    new_author = models.Author(**author_request.dict(), rating=0)
     db.add(new_author)
     db.commit()
     return new_author
