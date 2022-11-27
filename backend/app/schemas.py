@@ -88,3 +88,19 @@ class UserCreds(BaseModel):
 
     email: EmailStr
     password: str
+
+
+class BaseAuthor(BaseModel):
+    id: constr(max_length=24)
+    name: str | None
+    organization: str | None
+
+    class Config:
+        orm_mode = True
+
+
+class ResponseAuthor(BaseAuthor):
+    rating: int
+
+    class Config:
+        orm_mode = True
