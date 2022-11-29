@@ -6,8 +6,9 @@ import { Menu } from 'components/menu';
 export const Tabs = {
     recent: "recent",
     recommended: "recommended",
-    search: "search"
-}
+    search: "search",
+    authors: "authors"
+};
 
 // props: tab
 export const Papers = (props) => {
@@ -33,6 +34,9 @@ export const Papers = (props) => {
                             </li>
                             <li className="nav-item">
                                 <a className={"nav-link" + (props.tab === Tabs.search ? " active" : "")} aria-current="page" href="/search">Search</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className={"nav-link" + (props.tab === Tabs.authors ? " active" : "")} aria-current="page" href="/authors">Authors</a>
                             </li>
                         </ul>
 

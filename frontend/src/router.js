@@ -4,6 +4,7 @@ import { Recent } from 'routes/recent';
 import { Recommended } from 'routes/recommended';
 import { Registration } from 'routes/registration';
 import { Search } from 'routes/search';
+import { Authors } from 'routes/authors';
 import { PrivateRoute } from 'auth';
 
 export const Router = () => {
@@ -14,6 +15,7 @@ export const Router = () => {
             <Route path="/recent" element={<Recent />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/search" element={<PrivateRoute><Search /></PrivateRoute>}> </Route>
+            <Route path="/authors" element={<PrivateRoute><Authors /></PrivateRoute>}> </Route>
         </Routes >
-    )
-}
+    );
+};
