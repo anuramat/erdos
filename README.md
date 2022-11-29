@@ -3,7 +3,6 @@
 ### quickstart:
 
 ```bash
-npm run build # from ./frontend/
 docker compose up
 ```
 
