@@ -17,8 +17,8 @@ export const Search = () => {
     const LoadingError = () => {
         return (
             < div className="content-container mt-5" > whoops</div >
-        )
-    }
+        );
+    };
     // TODO proper error handling
     const searchHandler = (form) => {
 
@@ -26,17 +26,17 @@ export const Search = () => {
         myHeaders.append("Authorization", "Bearer " + getJWT());
         // TODO fix address
         const backend_address = window.location.protocol + "//" + window.location.hostname + ":8080/";
-        setSearchParams(form)
+        setSearchParams(form);
         fetch(backend_address + 'search?' + queryString.stringify(form), { method: "GET", headers: myHeaders })
             .then(response => response.json())
             .then(papers => setPosts(papers.map(paper => Post({ paper: paper }))))
             .catch((e) => setPosts(LoadingError(e)));
-    }
+    };
 
     useEffect(() => {
-        searchHandler(queryString.parse(window.location.search))
+        searchHandler(queryString.parse(window.location.search));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
         <Papers tab={Tabs.search}>
@@ -48,6 +48,6 @@ export const Search = () => {
             </form>
             {posts}
         </Papers>
-    )
+    );
 }
 

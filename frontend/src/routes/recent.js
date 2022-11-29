@@ -10,7 +10,7 @@ export const Recent = () => {
                 nothing here yet
             </div>
         </Papers>
-    )
+    );
 
 }
 

@@ -10,7 +10,7 @@ export const Menu = (props) => {
     const logOutHandler = () => {
         logOut();
         nav('/');
-    }
+    };
 
     const [loginError, setLoginError] = useState();
 
@@ -24,12 +24,12 @@ export const Menu = (props) => {
                 setLoginError("Wrong credentials, try again.");
                 break;
             case 200:
-                e.json().then(jwt => setJWT(jwt)).then(() => nav('/'))
+                e.json().then(jwt => setJWT(jwt)).then(() => nav('/'));
                 break;
             default:
                 e.json().then((x) => setLoginError(x));
         }
-    }
+    };
 
     const loginSubmitHandler = (e) => {
         // TODO fix backend addressing
@@ -38,8 +38,8 @@ export const Menu = (props) => {
             method: "POST", body: JSON.stringify(e), headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(e => loginResponseHandler(e))
-    }
+        }).then(e => loginResponseHandler(e));
+    };
 
     if (!isAuthenticated())
         return (
@@ -50,7 +50,7 @@ export const Menu = (props) => {
                 <button className="button" onClick={navToRegister}>Register</button>
                 {loginError}
 
-            </form>)
+            </form>);
     else {
         return (
             <div className="left-menu">
@@ -60,6 +60,6 @@ export const Menu = (props) => {
 
                 <button className="button" onClick={logOutHandler}> Log out </button>
             </div>
-        )
+        );
     }
-}
+};

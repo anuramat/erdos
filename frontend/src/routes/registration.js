@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const States = {
     start: "",
     success: "Registered successfully",
-}
+};
 
 const RegistrationForm = (props) => {
 
@@ -23,22 +23,22 @@ const RegistrationForm = (props) => {
             default:
                 e.json().then((x) => props.setState(x.detail));
         }
-    }
+    };
     const formHandler = (e) => {
         if (e.password !== e.password_again) {
-            props.setState("Passwords don't match")
-            return
+            props.setState("Passwords don't match");
+            return;
         }
 
         // TODO proper address
-        const params = { email: e.email, password: e.password }
+        const params = { email: e.email, password: e.password };
         const backend_address = window.location.protocol + "//" + window.location.hostname + ":8080/";
         fetch(backend_address + 'register', {
             method: "POST", body: JSON.stringify(params), headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(e => registrationResponseHandler(e))
-    }
+        }).then(e => registrationResponseHandler(e));
+    };
 
     return (
         <form className="middle-column" onSubmit={handleSubmit(formHandler)}>
@@ -47,17 +47,17 @@ const RegistrationForm = (props) => {
             <input type="password" className="form" placeholder="password" {...register("password")} />
             <input type="password" className="form" placeholder="password again" {...register("password_again")} />
             < button type="submit" className="button">Register</button>
-        </form >)
-}
+        </form >);
+};
 
 const FailedMessage = (props) => {
     return (
         <div className="middle-column mt-5">
             {props.children}
         </div>
-    )
+    );
 
-}
+};
 
 const SuccessMessage = (props) => {
     const nav = useNavigate();
@@ -66,8 +66,8 @@ const SuccessMessage = (props) => {
             {props.children}
             <button className="button" onClick={() => nav("/")}>Back to start page</button>
         </div>
-    )
-}
+    );
+};
 
 export const Registration = () => {
     const [state, setState] = useState(States.start);
@@ -77,5 +77,5 @@ export const Registration = () => {
             {state !== States.success && <RegistrationForm setState={setState} />}
             {state === States.success && <SuccessMessage>{state}!</SuccessMessage>}
             {state !== States.success && state !== States.start && <FailedMessage>{state}</FailedMessage>}
-        </div>)
-}
+        </div>);
+};
