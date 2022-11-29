@@ -1,8 +1,8 @@
-import React from 'react'
-import { Navigate } from 'react-router-dom'
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 
-const key = "jwt"
+const key = "jwt";
 
 export const setJWT = (token) => localStorage.setItem(key, token);
 
@@ -12,20 +12,20 @@ export const getUserData = () => {
     const jwt = localStorage.getItem(key);
     let decoded = {};
     try {
-        decoded = jwt_decode(jwt)
+        decoded = jwt_decode(jwt);
     } catch {
-        logOut()
+        logOut();
     }
-    return decoded
-}
+    return decoded;
+};
 
 export const isAuthenticated = () => {
-    return localStorage.getItem(key) !== null
-}
+    return localStorage.getItem(key) !== null;
+};
 
 export const logOut = () => {
     localStorage.removeItem(key);
-}
+};
 
 export const PrivateRoute = ({ children }) => {
 

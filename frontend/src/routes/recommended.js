@@ -9,6 +9,6 @@ export const Recommended = () => {
 
             <div className="content-container">nothing here yet</div>
         </Papers>
-    )
+    );
 }
 
