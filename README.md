@@ -9,6 +9,11 @@ docker compose up
 
 swagger is @ hostname/docs
 
+### todo remove: dirty hack to populate db
+- put .csv file next to erdos/backend/app/dataloader.py
+- docker compose up --build
+- connect to backend container and start dataloader.py
+
 ### dependency workflow:
 
 - install pip-tools:
