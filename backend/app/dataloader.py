@@ -26,7 +26,10 @@ def start():
                 abs = row[19]
                 doi = row[16]
 
-                authors = eval(row[8])
+                try:
+                    authors = eval(row[8])
+                except:
+                    raise errors.UniqueViolation
                 lang = row[7]
                 n_cit = intx(row[6], 0)
                 year = intx(row[4], None)
