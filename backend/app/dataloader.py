@@ -38,7 +38,7 @@ def start():
 
                 cur.execute(
                     "INSERT INTO papers (id, year, citation_number, language, doi, tag, cluster) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                    (pid, year, n_cit, lang, tag, cluster),
+                    (pid, year, n_cit, lang, doi, tag, cluster),
                 )
 
                 cur.execute(
@@ -58,8 +58,8 @@ def start():
                     if not author_exists:
                         # create author if it doesn't exist
                         cur.execute(
-                            "INSERT INTO authors (id, name) VALUES (%s, %s)",
-                            (aid, name),
+                            "INSERT INTO authors (id, name, rating) VALUES (%s, %s, %s)",
+                            (aid, name, 0),
                         )
                     # update ratings
                     cur.execute("UPDATE authors SET rating = rating + %s", (n_cit,))
