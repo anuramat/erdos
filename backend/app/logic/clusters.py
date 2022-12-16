@@ -33,5 +33,5 @@ def get_cluster(text: str) -> int:
     return randint(0, 40)
 
 
-def get_tag(text: str) -> str:
-    return MAPPING[get_cluster(text)]
+def get_tag(cluster: int) -> str:
+    return MAPPING[cluster]

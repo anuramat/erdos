@@ -39,7 +39,8 @@ async def create_paper(
             authors.append(author)
 
     paper_dict = paper_request.dict()
-    paper_dict["tag"] = clusters.get_tag(paper_request.abstract.text)
+    paper_dict["cluster"] = clusters.get_cluster(paper_request.abstract.text)
+    paper_dict["tag"] = clusters.get_tag(paper_dict["cluster"])
     del paper_dict["abstract"]
     del paper_dict["author_ids"]
     new_paper = models.Paper(**paper_dict, abstract=abstract, authors=authors)

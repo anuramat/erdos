@@ -57,6 +57,7 @@ class Paper(Base):
     isbn = Column(String(30))
     doi = Column(String(50))
     pdf_url = Column(String(200))
+    cluster = Column(Integer)
     tag = Column(String(32), nullable=False)
 
     external_links = relationship("ExternalLink")

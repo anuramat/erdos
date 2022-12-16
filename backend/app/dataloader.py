@@ -1,5 +1,6 @@
 import csv
 import psycopg2
+from app.logic.clusters import get_cluster, get_tag
 
 con = psycopg2.connect("dbname=erdosdb user=erdos host= password=w84kgj3vptg4m239")
 with open("data.csv") as csvfile:
@@ -20,15 +21,17 @@ with open("data.csv") as csvfile:
         title = row[2]
         pid = row[1]
 
+        cluster = get_cluster(abs)
+        tag = get_tag(cluster)
+
         cur.execute(
-            "INSERT INTO papers (id, title, year, citation_number, language, doi VALUES (%s, %s, %s, %s, %s, %s)",
-            (pid, title, year, n_cit, lang, doi),
+            "INSERT INTO papers (id, title, year, citation_number, language, doi, tag, cluster) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            (pid, title, year, n_cit, lang, doi, tag, cluster),
         )
 
         cur.execute(
             "INSERT INTO abstracts (paper_id, text) VALUES (%s, %s)", (pid, abs)
         )
-
 
         for author in authors:
             # check if author exists
