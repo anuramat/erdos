@@ -24,7 +24,7 @@ def start():
             try:
                 # not always there
                 abs = row[19]
-                doi = row[16]
+                doi = row[16][:49]
 
                 try:
                     authors = eval(row[8])
