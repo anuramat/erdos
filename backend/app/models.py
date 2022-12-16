@@ -88,6 +88,7 @@ class Abstract(Base):
     paper_id = Column(
         String(24), ForeignKey("papers.id", ondelete="CASCADE"), primary_key=True
     )
+    title = Column(Text)
     text = Column(Text)
     indexed = Column(JSON)
 
