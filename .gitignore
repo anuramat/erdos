@@ -430,3 +430,5 @@ $RECYCLE.BIN/
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,python,visualstudiocode,windows,react,node,yarn
+
+*.csv
